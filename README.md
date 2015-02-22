@@ -124,7 +124,7 @@ The purpose of this project is to demonstrate your ability to collect, work with
                 </li>
         </ul>
   </li>
-  <li>Appropriately labels the data set with descriptive variable names
+  <li>Appropriately labels the data set with descriptive variable names 
         <ul>
                 <li>Pattern Matching and Replacement
                         <font color='#00B2EE'>
