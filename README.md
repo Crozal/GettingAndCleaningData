@@ -75,7 +75,7 @@ The purpose of this project is to demonstrate your ability to collect, work with
                          <li>names(dataActivity)= c("Activity")</li>
                          <li>dataFeaturesNames = read.table(file.path(fSource, "features.txt"), head=FALSE)</li>
                          <li>names(dataFeaturesNames)=c("Key","Descripcion")</li>
-                         <li>names(dataFeatures)= dataFeaturesNames--Descripcion</li>
+                         <li>names(dataFeatures)= dataFeaturesNames$Descripcion</li>
                          <li>head(dataFeatures)</li>
                          <li>activityLabels =  read.table(file.path(fSource, "activity_labels.txt"), head=FALSE)</li>
                          <li>names(activityLabels)=c("Activity","Descripcion")</li>
@@ -91,7 +91,7 @@ The purpose of this project is to demonstrate your ability to collect, work with
                 </li>
         </ul>
   </li>
-  <li>**Extracts only the measurements on the mean and standard deviation for each measurement**
+  <li>Extracts only the measurements on the mean and standard deviation for each measurement
         <ul>
                 <li>load dplyr package
                         
@@ -114,8 +114,8 @@ The purpose of this project is to demonstrate your ability to collect, work with
                         
                          <ul>
                          <li>Data = inner_join(Data, activityLabels,by="Activity")</li>
-                         <li>Data = Activity =Data$Descripcion</li>
-                         <li>Data = Descripcion=NULL</li>
+                         <li>Data$Activity <-Data$Descripcion</li>
+                         <li>Data$Descripcion<-NULL</li>
                         </ul>
                         
                 </li>
