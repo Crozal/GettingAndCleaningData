@@ -1,44 +1,55 @@
 # Getting and Cleaning Data
 ##Getting and Cleaning Data
 ###Course Project
+
+The purpose of this project is to demonstrate your ability to collect, work with, and clean a data set. The goal is to prepare tidy data that can be used for later analysis. You will be graded by your peers on a series of yes/no questions related to the project. You will be required to submit: 1) a tidy data set as described below, 2) a link to a Github repository with your script for performing the analysis, and 3) a code book that describes the variables, the data, and any transformations or work that you performed to clean up the data called CodeBook.md. You should also include a README.md in the repo with your scripts. This repo explains how all of the scripts work and how they are connected.  
+
 ###Raw Data collection
 <ol>
-  <li>**Get the data**
+  <li>Get the data
          <ul>
                 <li>Download the Files</li>
                 <font color='#00B2EE'>
                 fileURL <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
-                <br>download.file(fileURL, destfile = "./Data/Dataset.zip", method = "curl")
+                 download.file(fileURL, destfile = "./Data/Dataset.zip", method = "curl")
                 </font>
                 <li>Unzip the Files - Decompressing the data , the files are in the folder named UCI HAR Dataset</li>
                 <font color='#00B2EE'>unzip(zipfile="./Data/Dataset.zip",exdir="./Project")</font>
                 <li>Get the list of the files in UCI HAR Dataset folder</li>
                 <font color='#00B2EE'>
-                fSource<-file.path("./", "Data", "UCI HAR Dataset")
-                <br>files<-list.files(fSource, recursive=TRUE)
-                <br>files
+                <ul>
+                <li>fSource <- file.path("./", "Data", "UCI HAR Dataset")</li>
+                <li>files <- list.files(fSource, recursive=TRUE)</li>
+                <li>files</li>
+                </ul>
                 </font>
         </ul>
   </li>
   
-  <li>**Read data from files and assign to data frames variables**
+  <li>Read data from files and assign to data frames variables
         <ul>
                 <li>Read the Test and Train Activity files
                         <font color='#00B2EE'>
-                        <br>dataActivityTest  <- read.table(file.path(fSource, "test" , "Y_test.txt" ), header = FALSE)
-                        <br>dataActivityTrain <- read.table(file.path(fSource, "train", "Y_train.txt"), header = FALSE)
+                        <ul>
+                        <li>dataActivityTest  <- read.table(file.path(fSource, "test" , "Y_test.txt" ), header = FALSE)</li>
+                        <li>dataActivityTrain <- read.table(file.path(fSource, "train", "Y_train.txt"), header = FALSE)</li>
+                        </ul>
                         </font>
                 </li>
                 <li>Read the Subject Test and Train files
                         <font color='#00B2EE'>
-                        <br>dataSubjectTrain <- read.table(file.path(fSource, "train", "subject_train.txt"), header = FALSE)
-                        <br>dataSubjectTest  <- read.table(file.path(fSource, "test" , "subject_test.txt"), header = FALSE)
+                         <ul>
+                         <li>dataSubjectTrain <- read.table(file.path(fSource, "train", "subject_train.txt"), header = FALSE)</li>
+                         <li>dataSubjectTest  <- read.table(file.path(fSource, "test" , "subject_test.txt"), header = FALSE)</li>
+                         </ul>
                         </font>
                 </li>
                 <li>Read Fearures Test and Train files
                         <font color='#00B2EE'>
-                        <br>dataFeaturesTest  <- read.table(file.path(fSource, "test" , "X_test.txt" ),header = FALSE)
-                        <br>dataFeaturesTrain <- read.table(file.path(fSource, "train", "X_train.txt"),header = FALSE)
+                         <ul>
+                         <li>dataFeaturesTest  <- read.table(file.path(fSource, "test" , "X_test.txt" ),header = FALSE)</li>
+                         <li>dataFeaturesTrain <- read.table(file.path(fSource, "train", "X_train.txt"),header = FALSE)</li>
+                        </ul>
                         </font>
                 </li>
         </ul>
@@ -47,32 +58,38 @@
 
 ###Raw Data transformation
 
-**The R script run_analysis.R does the following.**
+#####The R script run_analysis.R does the following.
 <ol>
-  <li>**Merges the training and the test sets to create one data set**
+  <li>Merges the training and the test sets to create one data set
         <ul>
                 <li>Concatenate the data tables by rows
                         <font color='#00B2EE'>
-                        <br>dataSubject <- rbind(dataSubjectTrain, dataSubjectTest)
-                        <br>dataActivity<- rbind(dataActivityTrain, dataActivityTest)
-                        <br>dataFeatures<- rbind(dataFeaturesTrain, dataFeaturesTest)
+                         <ul>
+                         <li>dataSubject <- rbind(dataSubjectTrain, dataSubjectTest)</li>
+                         <li>dataActivity<- rbind(dataActivityTrain, dataActivityTest)</li>
+                         <li>dataFeatures<- rbind(dataFeaturesTrain, dataFeaturesTest)</li>
+                         </ul>
                         </font>
                 </li>
                 <li>Set names to variables
                         <font color='#00B2EE'>
-                        <br>names(dataSubject)<-c("Subject")
-                        <br>names(dataActivity)<- c("Activity")
-                        <br>dataFeaturesNames <- read.table(file.path(fSource, "features.txt"), head=FALSE)
-                        <br>names(dataFeaturesNames)<-c("Key","Descripcion")
-                        <br>names(dataFeatures)<- dataFeaturesNames--Descripcion
-                        <br>head(dataFeatures)
-                        <br>activityLabels <-  read.table(file.path(fSource, "activity_labels.txt"), head=FALSE)
-                        <br>names(activityLabels)<-c("Activity","Descripcion")
+                         <ul>
+                         <li>names(dataSubject)<-c("Subject")</li>
+                         <li>names(dataActivity)<- c("Activity")</li>
+                         <li>dataFeaturesNames <- read.table(file.path(fSource, "features.txt"), head=FALSE)</li>
+                         <li>names(dataFeaturesNames)<-c("Key","Descripcion")</li>
+                         <li>names(dataFeatures)<- dataFeaturesNames--Descripcion</li>
+                         <li>head(dataFeatures)</li>
+                         <li>activityLabels <-  read.table(file.path(fSource, "activity_labels.txt"), head=FALSE)</li>
+                         <li>names(activityLabels)<-c("Activity","Descripcion")</li>
+                         </ul>
                         </font>
                 </li>
                 <li>Merge Columns
                         <font color='#00B2EE'>
-                        <br>Data <- cbind(dataFeatures,dataSubject,dataActivity)#563 Variables
+                         <ul><li>
+                         Data <- cbind(dataFeatures,dataSubject,dataActivity)#563 Variables
+                        </li></ul>
                         </font>
                 </li>
         </ul>
@@ -81,61 +98,72 @@
         <ul>
                 <li>load dplyr package
                         <font color='#00B2EE'>
-                        <br>suppressMessages(library(dplyr))
-                        <br>ColSelected <- 
-                        <br>dataFeaturesNames %>%
-                        <br>        select(Descripcion) %>%
-                        <br>        filter(grepl('Mean|Std', Descripcion,ignore.case=TRUE));
-                        <br>ColSelected <- c(as.character(ColSelected$Descripcion), "Subject", "Activity")
-                        <br>Data<-Data[,ColSelected]
+                         <ul>
+                         <li>suppressMessages(library(dplyr))
+                         <li>ColSelected <- 
+                         dataFeaturesNames %>%
+                                 select(Descripcion) %>%
+                                 filter(grepl('Mean|Std', Descripcion,ignore.case=TRUE));</li>
+                         <li>ColSelected <- c(as.character(ColSelected$Descripcion), "Subject", "Activity")</li>
+                         <li>Data<-Data[,ColSelected]</li>
+                         </ul>
                         </font>
                 </li>
         </ul>
   </li>
-  <li>**Uses descriptive activity names to name the activities in the data set**
+  <li>Uses descriptive activity names to name the activities in the data set
         <ul>
                 <li>Using Inner Join to Merge de Data
                         <font color='#00B2EE'>
-                        <br>Data <- inner_join(Data, activityLabels,by="Activity")
-                        <br>Data--Activity <-Data--Descripcion
-                        <br>Data--Descripcion<-NULL
+                         <ul>
+                         <li>Data <- inner_join(Data, activityLabels,by="Activity")</li>
+                         <li>Data <- Activity <-Data--Descripcion</li>
+                         <li>Data <- Descripcion<-NULL</li>
+                        </ul>
                         </font>
                 </li>
         </ul>
   </li>
-  <li>**Appropriately labels the data set with descriptive variable names**
+  <li>Appropriately labels the data set with descriptive variable names
         <ul>
                 <li>Pattern Matching and Replacement
                         <font color='#00B2EE'>
-                        <br>names(Data)<-gsub("Acc", "Accelerometer", names(Data))
-                        <br>names(Data)<-gsub("Gyro", "Gyroscope", names(Data))
-                        <br>names(Data)<-gsub("BodyBody", "Body", names(Data))
-                        <br>names(Data)<-gsub("Mag", "Magnitude", names(Data))
-                        <br>names(Data)<-gsub("^t", "Time", names(Data))
-                        <br>names(Data)<-gsub("^f", "Frequency", names(Data))
-                        <br>names(Data)<-gsub("tBody", "TimeBody", names(Data))
-                        <br>names(Data)<-gsub("-mean()", "Mean", names(Data), ignore.case = TRUE)
-                        <br>names(Data)<-gsub("-std()", "STD", names(Data), ignore.case = TRUE)
-                        <br>names(Data)<-gsub("-freq()", "Frequency", names(Data), ignore.case = TRUE)
-                        <br>names(Data)<-gsub("angle", "Angle", names(Data))
-                        <br>names(Data)<-gsub("gravity", "Gravity", names(Data))
-                        <br>tbl_df(Data)
+                         <ul>
+                         <li>names(Data)<-gsub("Acc", "Accelerometer", names(Data))</li>
+                         <li>names(Data)<-gsub("Gyro", "Gyroscope", names(Data))</li>
+                         <li>names(Data)<-gsub("BodyBody", "Body", names(Data))</li>
+                         <li>names(Data)<-gsub("Mag", "Magnitude", names(Data))</li>
+                         <li>names(Data)<-gsub("^t", "Time", names(Data))</li>
+                         <li>names(Data)<-gsub("^f", "Frequency", names(Data))</li>
+                         <li>names(Data)<-gsub("tBody", "TimeBody", names(Data))</li>
+                         <li>names(Data)<-gsub("-mean()", "Mean", names(Data), ignore.case = TRUE)</li>
+                         <li>names(Data)<-gsub("-std()", "STD", names(Data), ignore.case = TRUE)</li>
+                         <li>names(Data)<-gsub("-freq()", "Frequency", names(Data), ignore.case = TRUE)</li>
+                         <li>names(Data)<-gsub("angle", "Angle", names(Data))</li>
+                         <li>names(Data)<-gsub("gravity", "Gravity", names(Data))</li>
+                         <li>tbl_df(Data)</li>
+                        </ul>
                         </font>
                 </li>
         </ul>
   </li>
-  <li>**Creates a second,independent tidy data set and output it**
-      **In this part a second independent tidy data set will be created with the average of each variable **
-      **for each activity and each subject based on the data set in step 4.**
+  <li>Creates a second,independent tidy data set and output it
+      In this part a second independent tidy data set will be created with the average of each variable 
+      for each activity and each subject based on the data set in step 4.
       <ul>
                 <li>Tidy data set 
                 <font color='#00B2EE'>
-                        <br>DataT <- Data %>% 
-                        <br>group_by(Subject ,Activity) %>% 
-                        <br>summarise_each(funs(mean(.))) %>% 
-                        <br>arrange(Activity,Subject);
-                        <br>write.table(DataT, file = "tidydata.txt",row.name=FALSE)
-                        <br>tbl_df(DataT)
+                         <ul><li>
+                         DataT <- Data %>% 
+                         group_by(Subject ,Activity) %>% 
+                         summarise_each(funs(mean(.))) %>% 
+                         arrange(Activity,Subject);
+                         </li>
+                         <li>
+                         write.table(DataT, file = "tidydata.txt",row.name=FALSE)
+                         </li>
+                         <li>tbl_df(DataT)</li>
+                         </ul>
                 </font>
                 </li>
       </ul>
